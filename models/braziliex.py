@@ -8,6 +8,11 @@ class TikerBraziliex(BaseModel):
     ask: float = Field(alias='lowestAsk', default=None)
     bid: float = Field(alias='highestBid', default=None)
 
+    @validator('pair')
+    def norm_pair(cls, v):
+        """ltc_brl -> LTC:BRL"""
+        return v.upper().replace("_", ":")
+
 
 class Exchange(BaseModel, SortedMixin):
     name = 'Braziliex'
